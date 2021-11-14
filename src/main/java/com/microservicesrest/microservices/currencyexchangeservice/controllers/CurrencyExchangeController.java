@@ -15,6 +15,7 @@ public class CurrencyExchangeController {
                                                   @PathVariable String to){
 
         return new CurrencyExchange(1000L, from, to, BigDecimal.valueOf(50));
+
     }
 
 }
