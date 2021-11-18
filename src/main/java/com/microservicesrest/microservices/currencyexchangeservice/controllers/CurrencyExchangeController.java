@@ -1,5 +1,6 @@
 package com.microservicesrest.microservices.currencyexchangeservice.controllers;
 
+import com.microservicesrest.microservices.currencyexchangeservice.daos.CurrencyExchangeRepository;
 import com.microservicesrest.microservices.currencyexchangeservice.pojos.CurrencyExchange;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -15,15 +16,22 @@ public class CurrencyExchangeController {
     @Autowired
     private Environment environment;
 
+    @Autowired
+    private CurrencyExchangeRepository repository;
+
     @GetMapping("/currency-exchange/from/{from}/to/{to}")
     public CurrencyExchange retrieveExchangeValue(@PathVariable String from,
                                                   @PathVariable String to){
 
-        CurrencyExchange currencyExchange = new CurrencyExchange(1000L, from, to, BigDecimal.valueOf(50));
+        CurrencyExchange currencyExchange = repository.findByFromAndTo(from, to);
         String port = environment.getProperty("local.server.port");
         currencyExchange.setEnvironment(port);
-        return currencyExchange;
 
+        if(currencyExchange == null){
+            throw new RuntimeException("Unable to find data for: " + from + " to:" + to);
+        }
+
+        return currencyExchange;
     }
 
 }
