@@ -20,3 +20,9 @@ Response Structure
     "environment":"8000 instance-id"
 }
 ```
+
+#Load balancer
+![img.png](img.png)
+
+Running an instance over port 8001
+![img_2.png](img_2.png)
