@@ -26,3 +26,14 @@ Response Structure
 
 Running an instance over port 8001
 ![img_2.png](img_2.png)
+
+
+#H2 DB Configurations and Console
+spring.jpa.show = true
+spring.datasource.url = jdbc:h2:mem:testdb
+spring.h2.console.enabled = true
+spring.jpa.defer-datasource-initialization = true  //Indicates that the application should look for a data.sql file after the schema.sql after the Schema creation 
+
+url --> localhost:8000/h2-console
+![img_1.png](img_1.png)
+
