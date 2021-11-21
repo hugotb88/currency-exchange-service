@@ -37,3 +37,15 @@ spring.jpa.defer-datasource-initialization = true  //Indicates that the applicat
 url --> localhost:8000/h2-console
 ![img_1.png](img_1.png)
 
+# How to Register a microservice in Eureka
+- in the POM of the microservice project add the dependency for Eureka client
+```
+    <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+    </dependency>
+```
+Additional, just to be sure, you can add the following to the properties file
+``eureka.client.serviceUrl.defaultZone = http://localhost:8761/eureka``
+
+![img_3.png](img_3.png)
