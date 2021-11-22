@@ -104,5 +104,28 @@ Then...
 
 
 # Circuit Breaker using Resilience4j (Earlier Hystrix)
-- Inspired in Netflix Hystrix
 ![img_5.png](img_5.png)
+
+- Inspired in Netflix Hystrix
+- Review Resilience4j site to check if the followind dependencies are the only ones that we need to add:
+  - actuator
+  - spring boot2
+  - spring aop
+
+```
+  		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>io.github.resilience4j</groupId>
+			<artifactId>resilience4j-spring-boot2</artifactId>
+		</dependency>
+        
+```
