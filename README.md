@@ -101,3 +101,8 @@ Then...
   Using Spring Gateway 
   http://localhost:8765/currency-exchange/currency-exchange/from/USD/to/MXN
 ```
+
+
+# Circuit Breaker using Resilience4j (Earlier Hystrix)
+- Inspired in Netflix Hystrix
+![img_5.png](img_5.png)
