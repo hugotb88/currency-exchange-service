@@ -170,7 +170,7 @@ How to send a lot of request from terminal to simulate 100 or 200  request to an
 10 request Per second (Requires install cURL in Windows)
 ``watch -n 0.1 curl http://localhost:8000/sample-api``
 
-# Hoe Circuit Breaker Works
+# How Circuit Breaker Works
 States
 
 CLOSED --> Always calling the dependant microservice constantly
@@ -179,3 +179,17 @@ HALF_OPEN --> Will send a portion of request to the microservice and the rest to
 
 You can configure a rate to determine when a microservice is down and moved to OPEN status.
 (Look Resilience4j Documentation -> Spring Boot 2)
+
+#Ratelimit and BulkHead features
+@RateLimiter(name="default") // in 10s i want only allow 2 calls
+@Bulkhead(name = "default")
+
+
+In the properties file...
+```
+resilience4j.ratelimiter.instances.default.limitForPeriod = 2
+resilience4j.ratelimiter.instances.default.limitRefreshPeriod = 10s
+```
+
+How many simultaneous calls? this is BulkHead
+``resilience4j.bulkhead.instances.default.maxConcurrentCalls = 10``
