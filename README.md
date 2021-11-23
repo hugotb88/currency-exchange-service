@@ -159,3 +159,23 @@ Configuring time to wait between each try
 
 Configuring exponential time between each try
 ``resilience4j.retry.instances.sample-api.enableExponentialBackoff = true``
+
+
+Using @CircuitBreaker annnotation
+@CircuitBreaker(name = "default", fallbackMethod = "hardcodedResponse")
+
+Will break the circuit and return a response back
+
+How to send a lot of request from terminal to simulate 100 or 200  request to an endpoint?
+10 request Per second (Requires install cURL in Windows)
+``watch -n 0.1 curl http://localhost:8000/sample-api``
+
+# Hoe Circuit Breaker Works
+States
+
+CLOSED --> Always calling the dependant microservice constantly
+OPEN --> Will return directly the fallback response
+HALF_OPEN --> Will send a portion of request to the microservice and the rest to fallback response
+
+You can configure a rate to determine when a microservice is down and moved to OPEN status.
+(Look Resilience4j Documentation -> Spring Boot 2)
