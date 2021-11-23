@@ -141,3 +141,21 @@ Then in the properties file...
 ``resilience4j.retry.instances.sample-api.maxRetryAttempts = 5``
 
 ![img_6.png](img_6.png)
+
+Configuring default response
+@Retry(name = "sample-api", fallbackMethod = "hardcodedResponse")
+Then you need to created a method with the name "hardcodedResponse"
+
+```
+public String hardcodedResponse(Exception ex){
+  return "fallback-response";
+}
+```
+
+![img_7.png](img_7.png)
+
+Configuring time to wait between each try
+``resilience4j.retry.instances.sample-api.waitDuration = 1s``
+
+Configuring exponential time between each try
+``resilience4j.retry.instances.sample-api.enableExponentialBackoff = true``
