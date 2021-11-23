@@ -129,3 +129,15 @@ Then...
 		</dependency>
         
 ```
+
+# Some configurations for Circuit Breaker
+@Retry(name = "default") --> Added in a method in the Controller 
+This tries 3 times before return an error.
+
+- You can customize your own retries configuration
+  @Retry(name = "sample-api") --> Choose the name
+
+Then in the properties file...
+``resilience4j.retry.instances.sample-api.maxRetryAttempts = 5``
+
+![img_6.png](img_6.png)
