@@ -193,3 +193,10 @@ resilience4j.ratelimiter.instances.default.limitRefreshPeriod = 10s
 
 How many simultaneous calls? this is BulkHead
 ``resilience4j.bulkhead.instances.default.maxConcurrentCalls = 10``
+
+
+# Distributed Tracing (Zipkin Server)
+- ¿How you can trace a request tha travels across a lot of Microservices?
+  - Using Distributed Tracing 
+
+![img_8.png](img_8.png)
