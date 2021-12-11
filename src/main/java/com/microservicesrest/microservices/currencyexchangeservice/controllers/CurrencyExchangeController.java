@@ -25,7 +25,7 @@ public class CurrencyExchangeController {
     public CurrencyExchange retrieveExchangeValue(@PathVariable String from,
                                                   @PathVariable String to){
 
-        logger.info("retrieveExchangeValie with {} to {}", from, to );
+        logger.info("retrieveExchangeValue with {} to {}", from, to );
 
         CurrencyExchange currencyExchange = repository.findByFromAndTo(from, to);
         String port = environment.getProperty("local.server.port");

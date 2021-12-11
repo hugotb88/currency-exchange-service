@@ -248,3 +248,9 @@ in properties file (1.0 means 100% of the requests)
 
 Run the microservice, Zipkin, send a request and Refresh Zipkin in browser
 ![img_12.png](img_12.png)
+
+
+# Sleuth library
+- Allows to assign an ID to each one of the requests.
+- In this way you can trace and track where a request (In which microservice) is failing
+
