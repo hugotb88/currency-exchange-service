@@ -353,3 +353,45 @@ environment:
 depends-on --> Indicates that the current-exchange container needs first the naming-server service.
 
 environment --> Environment variable, we replaced localhost for naming-server, because localhost is not the same inside Docker than in our machines, in this way Eureka (naming-server) can discovers the currency-exchange service, its the same property that we have in the properties file in the currency-exchange service but in uppercase and replacing '=' for ':'.
+
+#Configuring RabbitMQ
+We will configure RabbitMQ to help with Resilience, in case the Tracing Server is down, RabbitMQ will keep the requests in the queue until is up again
+
+![](img_10.png)
+
+
+Besides de dependecy in the pom.xml we added in the Docker compose file the following:
+```
+RABBIT_URI: amqp://guest:guest@rabbitmq:5672
+SPRING_RABBITMQ_HOST: rabbitmq
+SPRING_ZIPKIN_SENDER_TYPE: rabbit
+```
+
+RABBIT_URI --> Where is running RabbitMQ, {user:password@instance:port}
+
+SPRING_RABBITMQ_HOST --> Type of queue
+
+SPRING_ZIPKIN_SENDER_TYPE --> this is the same that we have in the properties file
+
+
+# Additional Configurations in Docker Compose File
+- RabbitMQ service
+  - ```
+    rabbitmq:
+    image: rabbitmq:3.8.12-management
+    mem_limit: 300m
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - currency-network```
+- For Currency-Exchange, Currency.Conversion and API-Gateway added 
+  - ``depends_on : rabbitmq``
+  - The three environment variables above
+- For the Zipkin Server we only add one environment variable to let him know where is running RabbitMQ
+  - Added a ``depends_on : rabbitmq`` 
+  - Added ``restart: always #Restart if there is a problem starting up``
+  - ```
+    environment:
+      RABBIT_URI: amqp://guest:guest@rabbitmq:5672
+    ```
