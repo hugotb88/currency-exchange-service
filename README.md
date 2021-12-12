@@ -254,3 +254,82 @@ Run the microservice, Zipkin, send a request and Refresh Zipkin in browser
 - Allows to assign an ID to each one of the requests.
 - In this way you can trace and track where a request (In which microservice) is failing
 
+# Docker compose
+- It's a tool to define and execute applications of several Docker containers
+- Configured in a YAML file
+- Basically you can run a los of applications configuring the in the Docker compose file.
+- Reference https://github.com/in28minutes/spring-microservices-v2/tree/main/04.docker
+  - You can download that repo and the resources are there
+
+
+  ## Install Docker Compose
+- For Windows is included in the .exe that installs docker.
+
+``docker compose --version``
+
+Docker compose file example (docker-compose.yaml)
+ - Use spaces instead Tabs (2 spaces)
+ - It is in YAML format
+ - Each container is called "service" in the compose file
+```
+version: '3.7'
+services:
+  currency-exchange:
+    image: in28min/mmv2-currency-exchange-service:0.0.1-SNAPSHOT
+    mem_limit: 700m
+    ports:
+      - "8000:8000"
+```
+
+If you want to run that docker compose file
+- Go to the directory where the file is
+``docker-compose up``
+
+
+# Creating a Docker compose for Currency Exchange Service
+- Add the following in the pom.xml:
+
+```
+<configuration>
+  <image>
+    <name>hugotb88/mmv2-${project.artifactId}:${project.version}</name>
+  </image>
+  <pullPolicy>IF_NOT_PRESENT</pullPolicy>
+</configuration> 
+```
+
+- configuration --> start of image configuration
+- name --> {id}/name_of_the_image
+- pullPolicy --> IF_NOT_PRESENT means that always will create and image if not exists
+
+Result in pom.xml
+```
+<build>
+  <plugins>
+      <plugin>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-maven-plugin</artifactId>
+          <configuration>
+              <image>
+                  <name>hugotb88/mmv2-${project.artifactId}:${project.version}</name>
+              </image>
+              <pullPolicy>IF_NOT_PRESENT</pullPolicy>
+          </configuration>
+      </plugin>
+  </plugins>
+</build>
+```
+
+Then run a Maven build with the following goals 
+``spring-boot:build-image -DskipTests``
+
+![img_11.png](img_11.png)
+
+![img_13.png](img_13.png)
+
+
+Then you can use your image using the following command:
+
+``docker run -p 8000:8000 hugotb88/mmv2-currency-exchange-service:0.0.1-SNAPSHOT``
+
+![img_15.png](img_15.png)
