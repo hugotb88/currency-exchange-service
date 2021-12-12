@@ -2,6 +2,6 @@ version: '3.7'
 services:
   currency-exchange:
     image: hugotb88/mmv2-currency-exchange-service:0.0.1-SNAPSHOT
-    mem_limit: 700m
+    mem_limit: 700m 
     ports:
       - "8000:8000"
