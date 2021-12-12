@@ -339,3 +339,17 @@ Then you can use your image using the following command:
 ``docker run -p 8000:8000 hugotb88/mmv2-currency-exchange-service:0.0.1-SNAPSHOT``
 
 ![img_15.png](img_15.png)
+
+
+## Additional thing added to Docker compose file
+
+```
+depends_on:
+      - naming-server
+environment:
+  EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka
+```
+
+depends-on --> Indicates that the current-exchange container needs first the naming-server service.
+
+environment --> Environment variable, we replaced localhost for naming-server, because localhost is not the same inside Docker than in our machines, in this way Eureka (naming-server) can discovers the currency-exchange service, its the same property that we have in the properties file in the currency-exchange service but in uppercase and replacing '=' for ':'.
