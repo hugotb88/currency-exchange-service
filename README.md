@@ -271,14 +271,20 @@ Docker compose file example (docker-compose.yaml)
  - Use spaces instead Tabs (2 spaces)
  - It is in YAML format
  - Each container is called "service" in the compose file
+ - Usually a network is created
 ```
 version: '3.7'
 services:
   currency-exchange:
-    image: in28min/mmv2-currency-exchange-service:0.0.1-SNAPSHOT
+    image: hugotb88/mmv2-currency-exchange-service:0.0.1-SNAPSHOT
     mem_limit: 700m
     ports:
       - "8000:8000"
+    networks:
+      - currency-network
+        
+networks:
+  currency-network:
 ```
 
 If you want to run that docker compose file
